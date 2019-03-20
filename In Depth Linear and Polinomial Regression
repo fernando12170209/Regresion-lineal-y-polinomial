@@ -1,0 +1,37 @@
+@autor: Eddy Fernando Sanchez Villanueva
+Refencia: Python Data Science HandBook 
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn import datasets, linear_model
+from sklearn.preprocessing import PolynomialFeatures
+x = np.array([2, 3, 4])
+xfit=np.linspace(0,10,50)#En que rango debe ir?
+poly = PolynomialFeatures(3, include_bias=False)
+poly.fit_transform(x[:, None])
+#Pag 382 y 394
+
+#Segmento de codigo que Determina la Ecuacion de la nube de puntos DEGREE=7 grdo de la ecuacion
+from sklearn.pipeline import make_pipeline
+poly_model = make_pipeline(PolynomialFeatures(degree=7),linear_model.LinearRegression())
+
+#This pipeline looks and acts like a standard Scikit-Learn object,  
+#and will apply all the specified steps to any input data.
+
+
+#Random sample data
+rng = np.random.RandomState(1)
+x = 10 * rng.rand(50)
+y = np.sin(x) + 0.1 * rng.randn(50)
+
+
+
+poly_model.fit(x[:, np.newaxis], y)
+yfit = poly_model.predict(xfit[:, np.newaxis])
+plt.scatter(x, y)
+plt.plot(xfit, yfit)
+#polinomio de grado 5 con NUMPY.POLYFIT
+poly=np.polyfit(x,y,5)
+plt.plot(x,np.polyval(poly,x),'o')
+
+plt.show()
+
